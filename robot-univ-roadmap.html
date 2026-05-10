@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Exam Database 2027 (Link Fixed Ver)</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-main: #212529;
+            --border-color: #dee2e6;
+            --primary-tuat: #28a745;
+            --primary-chiba: #dc3545;
+            --primary-tohoku: #6f42c1;
+            --primary-shibaura: #007bff;
+            --card-bg: #ffffff;
+            --link-color: #0d6efd;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #6c757d;
+            border-radius: 5px 5px 0 0;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            background-color: #e9ecef;
+        }
+        .tab-btn.active {
+            color: var(--text-main);
+            border-bottom: 3px solid var(--text-main);
+        }
+        
+        .tab-btn[data-target="tuat"].active { border-color: var(--primary-tuat); color: var(--primary-tuat); }
+        .tab-btn[data-target="chiba"].active { border-color: var(--primary-chiba); color: var(--primary-chiba); }
+        .tab-btn[data-target="tohoku"].active { border-color: var(--primary-tohoku); color: var(--primary-tohoku); }
+        .tab-btn[data-target="shibaura"].active { border-color: var(--primary-shibaura); color: var(--primary-shibaura); }
+
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .content-section.active {
+            display: block;
+        }
+        
+        h2 { font-size: 1.4rem; margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        h3 { font-size: 1.1rem; margin-top: 25px; background-color: #f1f3f5; padding: 8px 12px; border-left: 4px solid var(--text-main); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem; }
+        th, td { border: 1px solid var(--border-color); padding: 10px 15px; text-align: left; }
+        th { background-color: #f8f9fa; width: 25%; font-weight: 600; }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .link-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .link-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+        .link-card a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: inline-block;
+            padding: 4px 0;
+        }
+        .link-card a:hover { text-decoration: underline; }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+        .badge-req { background-color: #dc3545; color: white; }
+        .badge-info { background-color: #17a2b8; color: white; }
+        
+        .alert-box {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px 15px;
+            border-left: 4px solid #ffeeba;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>2027年度入試 データ・リンクポータル</h1>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" data-target="tuat">東京農工大学</button>
+        <button class="tab-btn" data-target="chiba">千葉大学</button>
+        <button class="tab-btn" data-target="tohoku">東北大学</button>
+        <button class="tab-btn" data-target="shibaura">芝浦工業大学</button>
+    </div>
+
+    <!-- 1. 東京農工大学 -->
+    <div id="tuat" class="content-section active">
+        <h2>東京農工大学 工学部 機械システム工学科</h2>
+        
+        <h3>配点・試験科目 (前期日程)</h3>
+        <table>
+            <tr>
+                <th>共通テスト (900点)</th>
+                <td>
+                    国語(200)<br>
+                    地歴・公民から1(100)<br>
+                    数学I・A(100) / 数学II・B・C(100)<br>
+                    理科：物・化・生・地から2(200)<br>
+                    英語(200 ※リスニング含む)<br>
+                    情報I(100)
+                </td>
+            </tr>
+            <tr>
+                <th>2次試験 (1100点)</th>
+                <td>
+                    数学(400)：数I・II・III・A・B・C<br>
+                    理科(400)：<span class="badge badge-req">物理必須</span> + 化学・生物・地学から1<br>
+                    英語(300)
+                </td>
+            </tr>
+        </table>
+
+        <h3>公式リンク集（安定版）</h3>
+        <div class="alert-box">
+            ※過去問やデータ集は年度更新によりURLが変更されるため、大元の「入試情報トップページ」から該当年度のメニューを辿ってください。
+        </div>
+        <div class="link-grid">
+            <div class="link-card">
+                <div class="link-title">入試関連</div>
+                <a href="https://www.tuat.ac.jp/admission/" target="_blank">▶ 入試情報トップページ（大元）</a>
+                <a href="https://www.tuat.ac.jp/admission/nyushi_gakubu/youkou/" target="_blank">▶ 募集要項・入学者選抜要項</a>
+                <a href="https://www.tuat.ac.jp/admission/opencampus/" target="_blank">▶ オープンキャンパス情報</a>
+            </div>
+            <div class="link-card">
+                <div class="link-title">学部・学科関連</div>
+                <a href="https://www.tuat.ac.jp/" target="_blank">▶ 東京農工大学 公式サイトトップ</a>
+                <a href="https://www.tuat.ac.jp/department/engineering/mech/" target="_blank">▶ 機械システム工学科トップ</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 千葉大学 -->
+    <div id="chiba" class="content-section">
+        <h2>千葉大学 工学部 総合工学科 機械工学コース</h2>
+        
+        <h3>配点・試験科目 (前期日程)</h3>
+        <table>
+            <tr>
+                <th>共通テスト (450点)</th>
+                <td>
+                    国語(100)<br>
+                    地歴・公民から1(50)<br>
+                    数学I・A(50) / 数学II・B・C(50)<br>
+                    理科：物理(50)・化学(50)<br>
+                    英語(100 ※リスニング含む)<br>
+                    情報I <span class="badge badge-info">配点要確認</span>
+                </td>
+            </tr>
+            <tr>
+                <th>2次試験 (900点)</th>
+                <td>
+                    数学(300)：数I・II・III・A・B・C<br>
+                    理科(300)：<span class="badge badge-req">物理・化学 必須</span><br>
+                    英語(300)
+                </td>
+            </tr>
+        </table>
+
+        <h3>公式リンク集（安定版）</h3>
+        <div class="alert-box">
+            ※過去問・データ集・コース案内の直リンクは削除されました。「入試案内トップ」および「大学トップページ」のメニューから最新情報を確認してください。
+        </div>
+        <div class="link-grid">
+            <div class="link-card">
+                <div class="link-title">入試・大学総合</div>
+                <a href="https://www.chiba-u.ac.jp/exam/" target="_blank">▶ 千葉大学 入試案内トップページ</a>
+                <a href="https://www.chiba-u.ac.jp/" target="_blank">▶ 千葉大学 公式サイトトップ</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 東北大学 -->
+    <div id="tohoku" class="content-section">
+        <h2>東北大学 工学部 機械知能・航空工学科</h2>
+        
+        <h3>配点・試験科目 (一般前期日程)</h3>
+        <table>
+            <tr>
+                <th>共通テスト (450点)</th>
+                <td>
+                    国語(100)<br>
+                    地歴・公民から1(50)<br>
+                    数学I・A / 数学II・B・C (計100)<br>
+                    理科：物理・化学 (計100)<br>
+                    英語(100 ※リスニング含む)<br>
+                    情報I <span class="badge badge-info">配点要確認</span>
+                </td>
+            </tr>
+            <tr>
+                <th>2次試験 (800点)</th>
+                <td>
+                    数学(300)：数I・II・III・A・B・C<br>
+                    理科(300)：<span class="badge badge-req">物理・化学 必須</span><br>
+                    英語(200)
+                </td>
+            </tr>
+        </table>
+
+        <h3>公式リンク集（安定版）</h3>
+        <div class="alert-box">
+            ※入試・オープンキャンパス情報はすべて「東北大学アドミッションセンター（入試センター）」に集約されています。こちらのホームから各年度の情報を辿ってください。
+        </div>
+        <div class="link-grid">
+            <div class="link-card">
+                <div class="link-title">入試関連</div>
+                <a href="https://www.tnc.tohoku.ac.jp/" target="_blank">▶ 東北大学アドミッションセンター（旧・入試センター）ホーム</a>
+            </div>
+            <div class="link-card">
+                <div class="link-title">学部・学科関連</div>
+                <a href="https://www.eng.tohoku.ac.jp/" target="_blank">▶ 工学部トップページ</a>
+                <a href="https://www.mech.tohoku.ac.jp/" target="_blank">▶ 機械系 (機械知能・航空工学科) トップ</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 芝浦工業大学 -->
+    <div id="shibaura" class="content-section">
+        <h2>芝浦工業大学 システム理工学部 / 工学部 (機械系学科)</h2>
+        
+        <h3>試験科目 (前期日程・3教科方式)</h3>
+        <table>
+            <tr>
+                <th>個別試験のみ</th>
+                <td>
+                    数学：数I・II・III・A・B・C<br>
+                    理科：<span class="badge badge-req">物理 必須</span> ＋ 化学<br>
+                    英語：独自試験 または 外部資格(英検等)スコア利用
+                </td>
+            </tr>
+            <tr>
+                <th>備考</th>
+                <td>
+                    ※入試方式（全学統一、英語資格利用方式、共通テスト利用方式等）により科目と配点が異なります。必ず公式要項を確認してください。
+                </td>
+            </tr>
+        </table>
+
+        <h3>公式リンク集（安定版）</h3>
+        <div class="alert-box">
+            ※過去問等の直リンクは無効化されやすいため、受験生専用のトップページからアクセスしてください。
+        </div>
+        <div class="link-grid">
+            <div class="link-card">
+                <div class="link-title">入試・大学総合</div>
+                <a href="https://www.shibaura-it.ac.jp/examinee/" target="_blank">▶ 芝浦工業大学 受験生サイト トップページ</a>
+                <a href="https://www.shibaura-it.ac.jp/" target="_blank">▶ 芝浦工業大学 公式サイトトップ</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.tab-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            // タブの切り替え
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // コンテンツの切り替え
+            const targetId = button.getAttribute('data-target');
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
